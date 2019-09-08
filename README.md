@@ -1,6 +1,6 @@
 # VeRo for MTA
 Dieser Spielmodus wird momentan entwickelt.
-
+Aktuelle Arbeitszeit ( basierend auf In-Game Spielzeit [ erst mit Ver. 0.02 InDev ergänzt ] 7 Stunden 15 Minuten
 # Changelog
 
 03.09.2019(Ver. 0.01 InDev):
