@@ -26,4 +26,7 @@ Dieser Spielmodus wird momentan entwickelt.
 
 06.09.2019(Ver.0.03 InDev)
 - Fahrzeugsystem erweitert
+
+08.09.2019(Ver.0.031 InDev)
+- Fahrzeugmenü erstellt
  
