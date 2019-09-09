@@ -3,10 +3,10 @@
 - Dieser Spielmodus wird momentan entwickelt.
 - Aktuelle Arbeitszeit ( basierend auf In-Game Spielzeit [ erst mit Ver. 0.02 InDev ergänzt ] 10 Stunden und 30 Minuten
 
-##Notiz
+#Notiz
 Die Datenbankdatei wird in dem Beta Branch mit dabei sein, bisher ist nur das Skript Öffentlich, aber anhand der Informationen im Skript kann diese Rekonstruiert werden.
 
-##Changelog
+#Changelog
 
 03.09.2019(Ver. 0.01 InDev):
 - Development gestartet
