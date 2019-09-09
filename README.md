@@ -1,7 +1,12 @@
 # VeRo for MTA
+##Informationen zum Projekt
 - Dieser Spielmodus wird momentan entwickelt.
-- Aktuelle Arbeitszeit ( basierend auf In-Game Spielzeit [ erst mit Ver. 0.02 InDev ergänzt ] 7 Stunden 15 Minuten
-# Changelog
+- Aktuelle Arbeitszeit ( basierend auf In-Game Spielzeit [ erst mit Ver. 0.02 InDev ergänzt ] 10 Stunden und 30 Minuten
+
+##Notiz
+Die Datenbankdatei wird in dem Beta Branch mit dabei sein, bisher ist nur das Skript Öffentlich, aber anhand der Informationen im Skript kann diese Rekonstruiert werden.
+
+##Changelog
 
 03.09.2019(Ver. 0.01 InDev):
 - Development gestartet
@@ -30,3 +35,8 @@
 08.09.2019(Ver.0.031 InDev)
 - Fahrzeugmenü erstellt
  
+09.09.2019(Ver.0.04 InDev)
+- Adminmodus erstellt
+- Fahrzeugklassenbeschränkung erstellt ( vorläufige Unterteilung )
+- Adminmodus Sonderberrechtigung für alle Fahrzeugklassen eingeführt
+*Bugs aktuell keine gefunden.*
