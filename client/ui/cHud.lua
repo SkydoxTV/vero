@@ -204,6 +204,8 @@ local self = {
     window = {},
     image = {},
     label = {},
+    sp = {},
+    tab = {},
 }
 local selfactive = false
 local settingactive = false 
@@ -260,8 +262,26 @@ function selfmenue_tabs(btn,st)
                     dgsCloseWindow(self.window[2])
                     settingactive = false 
                 elseif not settingactive then 
-                     self.window[2] = dgsCreateWindow(0.4,0.1067,0.2,0.3,"Einstellungen",true,tocolor(20,50,135,255))
-                     settingactive = true
+                    self.window[2] = dgsCreateWindow(0.4,0.1067,0.2,0.3,"Einstellungen",true,tocolor(20,50,135,255))
+                    self.tab[1] = dgsCreateTabPanel(0,0,1,1,true,self.window[2])
+                    self.tab[2] = dgsCreateTab("Allgemein",self.tab[1])
+                    self.tab[3] = dgsCreateTab("HUD",self.tab[1])
+                    self.tab[4] = dgsCreateTab("Passwort",self.tab[1])
+                        self.tab.label = {}
+                        self.tab.label[1] = dgsCreateLabel(0,0,1,0.2,"Hierkannst du dein Passwort ändern\nFülle dazu das Formular aus.",true,self.tab[4],nil,nil,nil,nil,nil,nil,"center","center")
+                        self.tab.edit = {}
+                        self.tab.btn = {}
+                        self.tab.edit[1] = dgsCreateEdit(0.2,0.3,0.6,0.09,"Altes Passwort",true,self.tab[4])
+                        self.tab.edit[2] = dgsCreateEdit(0.2,0.5,0.6,0.09,"Neues Passwort",true,self.tab[4])
+                        self.tab.edit[3] = dgsCreateEdit(0.2,0.7,0.6,0.09,"Neues Passwort Wdh.",true,self.tab[4])
+                        self.tab.btn[1] = dgsCreateButton(0.75,0.875,0.225,0.1,"Bestätigen",true,self.tab[4])
+                    self.tab[5] = dgsCreateTab("Administrator",self.tab[1])
+                    self.tab[6] = dgsCreateTab("Serial",self.tab[1])
+                    self.tab[7] = dgsCreateTab("Haus",self.tab[1])
+                    if lp:getData("adminlvl") < 3 then
+                        dgsSetEnabled(self.tab[5], false)
+                    end
+                    settingactive = true
                 end
             end
             if source == self.image[1] then
@@ -274,7 +294,7 @@ function selfmenue_tabs(btn,st)
                     useractive = false 
                 elseif not useractive then 
                      self.window[3] = dgsCreateWindow(0.4,0.1067,0.2,0.3,"Benutzermenü",true,tocolor(20,50,135,255))
-                     self.label[1] = dgsCreateLabel(0.01,0.01,1,1,"Benutzername:\n"..lp:getName().."\n\nSpielzeit:\n"..minutesToClock(lp:getData("playtime")).."\n\nAnzahl der Logins:\n"..lp:getData("logins"),true,self.window[3])
+                     self.label[1] = dgsCreateLabel(0.01,0.01,1,1,"Benutzername:\n"..lp:getName().."\n\nSpielzeit:\n"..minutesToClock(lp:getData("playtime")).."\n\nAnzahl der Logins:\n"..lp:getData("logins").."\n\nTelefonnummer:\n"..lp:getData("telnr"),true,self.window[3])
                      useractive = true
                 end
             end
