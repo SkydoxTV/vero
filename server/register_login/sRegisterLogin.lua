@@ -109,6 +109,8 @@ function utilizeLoginData(pwd)
             local result2 = dbPoll(dbQuery(dbCon,"SELECT * FROM factions WHERE id = ?",source:getData("factionid")),-1)
             if result2[1] then
                 source:setData("factionname",result2[1]["name"])
+            else
+                source:setData("factionname","Keine")
             end
             local time = getRealTime()
             source:setData("startTime",time.timestamp)

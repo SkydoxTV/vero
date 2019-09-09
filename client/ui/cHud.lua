@@ -109,9 +109,10 @@ function showTab()
             tab.sp[1] = dgsCreateScrollPane(0,0,1,1,true,cparent)
             cparent = tab.sp[1]
 
-            tab.label[1] = dgsCreateLabel(0.05,0.015,0.3,0.045,"Spielername",true,cparent,nil,nil,nil,nil,nil,nil,"center","top")
-            tab.label[2] = dgsCreateLabel(0.35,0.015,0.3,0.045,"Status",true,cparent,nil,nil,nil,nil,nil,nil,"center","top")
-            tab.label[3] = dgsCreateLabel(0.65,0.015,0.3,0.045,"Spielzeit",true,cparent,nil,nil,nil,nil,nil,nil,"center","top") 
+            tab.label[1] = dgsCreateLabel(0,0.015,0.25,0.045,"Spielername",true,cparent,nil,nil,nil,nil,nil,nil,"center","top")
+            tab.label[2] = dgsCreateLabel(0.25,0.015,0.25,0.045,"Status",true,cparent,nil,nil,nil,nil,nil,nil,"center","top")
+            tab.label[3] = dgsCreateLabel(0.5,0.015,0.25,0.045,"Fraktion",true,cparent,nil,nil,nil,nil,nil,nil,"center","top")
+            tab.label[4] = dgsCreateLabel(0.75,0.015,0.25,0.045,"Spielzeit",true,cparent,nil,nil,nil,nil,nil,nil,"center","top") 
             for k,v in pairs(getElementsByType("player")) do
             local wert = (k*0.065)
                  if v:getData("status") == "Developer" then
@@ -121,9 +122,10 @@ function showTab()
                     name = getPlayerName(v)
                     color = nil
                 end
-                tab.label[1000+k] = dgsCreateLabel(0.05,wert,0.3 ,0.05,name,true,cparent,color,nil,nil,nil,nil,nil,"center","top")
-                tab.label[2000+k] = dgsCreateLabel(0.35,wert,0.3 ,0.05,getElementData(v,"status"),true,cparent,color,nil,nil,nil,nil,nil,"center","top")
-                tab.label[3000+k] = dgsCreateLabel(0.65,wert,0.3 ,0.05,minutesToClock(getElementData(v,"playtime")),true,cparent,color,nil,nil,nil,nil,nil,"center","top")
+                tab.label[1000+k] = dgsCreateLabel(0.0,wert,0.25,0.05,name,true,cparent,color,nil,nil,nil,nil,nil,"center","top")
+                tab.label[2000+k] = dgsCreateLabel(0.25,wert,0.25,0.05,getElementData(v,"status"),true,cparent,color,nil,nil,nil,nil,nil,"center","top")
+                tab.label[3000+k] = dgsCreateLabel(0.5,wert,0.25,0.05,lp:getData("factionname"),true,cparent,color,nil,nil,nil,nil,nil,"center","top")
+                tab.label[4000+k] = dgsCreateLabel(0.75,wert,0.25,0.05,minutesToClock(getElementData(v,"playtime")),true,cparent,color,nil,nil,nil,nil,nil,"center","top")
             end
 
 end
