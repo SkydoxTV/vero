@@ -6,6 +6,6 @@ function isHudEnabled(player)
     return getElementData(player,"showhud")
 end
 
-function notification(sendTo,text,duration,barcolor)
-    triggerClientEvent(sendTo,"receiveNotification",sendTo,text,duration,barcolor)
+function notification(sendTo,text,duration,barcolor,global)
+    triggerClientEvent(sendTo,"receiveNotification",sendTo,text,duration,barcolor,global)
 end

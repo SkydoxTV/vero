@@ -13,7 +13,7 @@ function toggleAdminDuty(player)
             player:setData("adminduty",true)
             for k,v in pairs(getElementsByType("player")) do
                 if v:getData("loggedin") then
-                    notification(v,"Globale Serverinformation\nDer Spieler '"..player:getName().."' hat\nden Adminmodus betreten.\nJegliches Deathmatch ist untersagt und wird streng geahndet.",10000,tocolor(245,237,88,255))
+                    notification(v,"Globale Serverinformation\nDer Spieler '"..player:getName().."' hat\nden Adminmodus betreten.\nJegliches Deathmatch ist untersagt und wird streng geahndet.",10000,tocolor(245,237,88,255),true)
                     adutytbl[player] = {}
                     adutytbl[player]["skin"] = player:getModel()
 
@@ -24,11 +24,12 @@ function toggleAdminDuty(player)
             player:setData("adminduty",false)
             for k,v in pairs(getElementsByType("player")) do
                 if v:getData("loggedin") then
-                    notification(v,"Wichtige globale Serverinformation\nDer Spieler '"..player:getName().."' hat\nden Adminmodus verlassen.\nEr ist nun wieder als normaler Spieler zu behandeln.",10000,tocolor(245,237,88,255))
+                    notification(v,"Globale Serverinformation\nDer Spieler '"..player:getName().."' hat\nden Adminmodus verlassen.\nEr ist nun wieder als normaler Spieler zu behandeln.",10000,tocolor(245,237,88,255),true)
                     player:setModel(adutytbl[player]["skin"])
                 end
             end
         end
     end
 end
-addCommandHandler("aduty",toggleAdminDuty)
+addEvent("serverToggleAdminDuty",true)
+addEventHandler("serverToggleAdminDuty",getRootElement(),toggleAdminDuty)

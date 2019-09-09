@@ -170,7 +170,7 @@ local notifications = {
     timer = {},
 }
 
-function notification(text,duration,barcolor)
+function notification(text,duration,barcolor,global)
 
     if isElement(notifications.window[1]) then
         dgsCloseWindow(notifications.window[1])
@@ -179,7 +179,11 @@ function notification(text,duration,barcolor)
 
     notifications.window[1] = dgsCreateWindow(0.7519,0.8167,0.2344,0.1556,"Benachrichtigung",true,barcolor)
     notifications.label[1] = dgsCreateLabel(0,0,1,1,text,true,notifications.window[1],nil,nil,nil,nil,nil,nil,"center","center")
-    playSound("res/sound/notifi.ogg")
+    if global then
+        playSound("res/sound/global.ogg")
+    else
+        playSound("res/sound/notifi.ogg")
+    end
     notifications.timer[1] = setTimer(function()
         if isElement(notifications.window[1]) then
             dgsCloseWindow(notifications.window[1])
@@ -278,7 +282,7 @@ function selfmenue_tabs(btn,st)
                         self.tab.edit[1] = dgsCreateEdit(0.2,0.3,0.6,0.09,"Altes Passwort",true,self.tab[4])
                         self.tab.edit[2] = dgsCreateEdit(0.2,0.5,0.6,0.09,"Neues Passwort",true,self.tab[4])
                         self.tab.edit[3] = dgsCreateEdit(0.2,0.7,0.6,0.09,"Neues Passwort Wdh.",true,self.tab[4])
-                        self.tab.btn[1] = dgsCreateButton(0.75,0.875,0.225,0.1,"Bestätigen",true,self.tab[4])
+                        self.tab.btn[1] = dgsCreateButton(0.75,0.875,0.225,0.1,"Bestätigen",true,self.tab[4],nil,nil,nil,nil,nil,nil)
                         addEventHandler("onDgsMouseClick",getRootElement(),function(btn,st)
                             if btn == "left" and st == "up" then
                                 if source == self.tab.btn[1] then
@@ -291,6 +295,25 @@ function selfmenue_tabs(btn,st)
                             end
                         end)
                     self.tab[5] = dgsCreateTab("Administrator",self.tab[1])
+                        if lp:getData("adminduty") == false then 
+                            self.tab.btn[2] = dgsCreateButton(0.05,0.05,0.25,0.1,"Adminmodus",true,self.tab[5],nil,nil,nil,nil,nil,nil,tocolor(182,50,50,255),tocolor(182,100,100,255),tocolor(200,110,110,255))
+                        else
+                            self.tab.btn[2] = dgsCreateButton(0.05,0.05,0.25,0.1,"Adminmodus",true,self.tab[5],nil,nil,nil,nil,nil,nil,tocolor(50,182,50,255),tocolor(100,182,100,255),tocolor(110,200,110,255))
+                        end
+                            addEventHandler("onDgsMouseClick",getRootElement(),function(btn,st)
+                            if btn == "left" and st == "up" then
+                                if source == self.tab.btn[2] then 
+                                    triggerServerEvent("serverToggleAdminDuty",lp,lp)
+
+                                    destroyElement(self.tab.btn[2])
+                                    if lp:getData("adminduty") == true then 
+                                        self.tab.btn[2] = dgsCreateButton(0.05,0.05,0.25,0.1,"Adminmodus",true,self.tab[5],nil,nil,nil,nil,nil,nil,tocolor(182,50,50,255),tocolor(182,100,100,255),tocolor(200,110,110,255))
+                                    else
+                                        self.tab.btn[2] = dgsCreateButton(0.05,0.05,0.25,0.1,"Adminmodus",true,self.tab[5],nil,nil,nil,nil,nil,nil,tocolor(50,182,50,255),tocolor(100,182,100,255),tocolor(110,200,110,255))
+                                    end
+                                end
+                            end
+                        end)
                     self.tab[6] = dgsCreateTab("Serial",self.tab[1])
                     self.tab[7] = dgsCreateTab("Haus",self.tab[1])
                     if lp:getData("adminlvl") < 3 then

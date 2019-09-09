@@ -16,6 +16,7 @@
     <file src="res/sound/loginregister.mp3" />
     <file src="res/sound/notifi.ogg" />
     <file src="res/sound/error.ogg" />
+    <file src="res/sound/global.ogg" />
     <file src="res/img/close.png" />
     <file src="res/img/settings.jpg" />
     <file src="res/img/user.png" />
