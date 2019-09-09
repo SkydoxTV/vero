@@ -11,6 +11,7 @@
     <script src="server/mysql.lua" />
     <script src="server/faction/sFaction.lua"/>
     <script src="server/vehiclesystem/sVehicles.lua"/>
+    <script src="server/admin/sAdmin.lua"/>
 
     <file src="res/sound/loginregister.mp3" />
     <file src="res/sound/notifi.ogg" />

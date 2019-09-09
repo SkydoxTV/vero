@@ -28,6 +28,7 @@ local dgs={
 --dgsCreateEdit(x,y,w,h,txt,rel,parent,txtclr,scx,scy,imgbg,clrbg,selmod)
 
 lp = getLocalPlayer()
+lp:setData("adminduty",false)
 lp:setData("reglog",false)
 lp:setData("loggedin",false)
 lp:setData("showhud",false)
