@@ -53,18 +53,18 @@ function utilizeRegisterData(pwd,pwd2,geschlecht)
     end
         if pwd == pwd2 then
         if #pwd2 == 0 then
-            player:outputChat("Passwort zu kurz!")
+            notification(player,"Dein Passwort ist zu kurz.",5000,tocolor(182,50,50,255))
         elseif #pwd2 > 16 then
-            player:outputChat("Passwort zu lang!")
+            notification(player,"Dein Passwort ist zu lang.",5000,tocolor(182,50,50,255))
         else
-            player:outputChat("PW CHECK TRUE")
+            
             local result = dbPoll(dbQuery(dbCon,"SELECT * FROM user WHERE username=?",player:getName()),-1)
             if result[1] then
-                player:outputChat("Benutzer Existiert berreits.")
+                notification(player,"Der Benutzer existiert berreits.",5000,tocolor(182,50,50,255))
             else 
                 local result = dbPoll(dbQuery(dbCon,"SELECT * FROM user WHERE serial=?",player:getSerial()),-1)
                 if result[1] then
-                    player:outputChat("Du hast berreits einen Account: "..result[1]["username"])
+                    notification(player,"Du hast berreits einen Account "..result[1]["username"],5000,tocolor(182,50,50,255))
                 else
                     local pw = passwordHash(pwd2,"bcrypt",{})
                     local number = generatePhoneNumber()
@@ -82,7 +82,7 @@ function utilizeRegisterData(pwd,pwd2,geschlecht)
             end
         end
     else
-        player:outputChat("Passwörter stimmen nicht überein!", 255,50,50)
+        notification(source,"Die Passwörter stimmen nicht überein.",5000,tocolor(182,50,50,255))
     end
 end
 addEvent("getDataFromClientRegister",true)
@@ -106,10 +106,10 @@ function utilizeLoginData(pwd)
             local time = getRealTime()
             source:setData("startTime",time.timestamp)
         else
-            source:outputChat("Falsches Passwort angegeben.")
+            notification(source,"Das angegeben Passwort ist falsch.",5000,tocolor(182,50,50,255))
         end
     else
-        source:outputChat("Der Account '"..source:getName().."' existiert nicht.")
+        notification(source,"Der Account '"..source:getName().."' existiert nicht.",5000,tocolor(182,50,50,255))
     end
 end
 addEvent("getDataFromClientLogin",true)
@@ -134,6 +134,19 @@ addEventHandler("onResourceStart",getResourceRootElement(getThisResource()),func
     for n,e in pairs(getElementsByType("player")) do
         for k,v in pairs(getAllElementData(e)) do
             setElementData(e,k,nil)
+        end
+    end
+end)
+
+addEvent("onClientPasswordChangeRequest",true)
+addEventHandler("onClientPasswordChangeRequest",getRootElement(),function(player,old,new)
+    local result = dbPoll(dbQuery(dbCon,"SELECT * FROM user WHERE username = ?",player:getName()),-1)
+    if result[1] then
+        if passwordVerify(old,result[1]["password"]) then
+            dbPoll(dbQuery(dbCon,"UPDATE user SET password = ? WHERE username = ?",passwordHash(new,"bcrypt",{}),player:getName()),-1)
+            notification(player,"Dein Passwort wurde erfolgreich\ngeändert.",5000)
+        else
+            notification(player,"Dein Passwort ist falsch\nPasswort vergessen? Melde dich bei unserem Team.",5000,tocolor(182,50,50,255))
         end
     end
 end)

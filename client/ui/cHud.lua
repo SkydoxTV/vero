@@ -170,13 +170,14 @@ local notifications = {
     timer = {},
 }
 
-function notification(text,duration)
+function notification(text,duration,barcolor)
+
     if isElement(notifications.window[1]) then
         dgsCloseWindow(notifications.window[1])
         killTimer(notifications.timer[1])
     end
 
-    notifications.window[1] = dgsCreateWindow(0.7519,0.8167,0.2344,0.1556,"Benachrichtigung",true)
+    notifications.window[1] = dgsCreateWindow(0.7519,0.8167,0.2344,0.1556,"Benachrichtigung",true,barcolor)
     notifications.label[1] = dgsCreateLabel(0,0,1,1,text,true,notifications.window[1],nil,nil,nil,nil,nil,nil,"center","center")
     playSound("res/sound/notifi.ogg")
     notifications.timer[1] = setTimer(function()
@@ -220,6 +221,7 @@ addEventHandler("onClientClick",getRootElement(),function(button, state, absolut
                             dgsCloseWindow(self.window[1])
                             selfactive = false
                             removeEventHandler("onDgsMouseClick",getRootElement(),selfmenue_tabs)
+                            guiSetInputMode("allow_binds")
                         else
                             self.window[1] = dgsCreateWindow(0.4,0.01,0.2,0.0967,"Eigenmenü",true,tocolor(20,50,135,255))
                             selfactive = true
@@ -240,6 +242,7 @@ function selfmenue_tabs(btn,st)
             if source == self.image[3] then
                 removeEventHandler("onDgsMouseClick",getRootElement(),selfmenue_tabs)
                 dgsCloseWindow(self.window[1])
+                guiSetInputMode("allow_binds")
                 selfactive = false
                 if settingactive then
                     dgsCloseWindow(self.window[2])
@@ -267,6 +270,7 @@ function selfmenue_tabs(btn,st)
                     self.tab[2] = dgsCreateTab("Allgemein",self.tab[1])
                     self.tab[3] = dgsCreateTab("HUD",self.tab[1])
                     self.tab[4] = dgsCreateTab("Passwort",self.tab[1])
+                    guiSetInputMode("no_binds")
                         self.tab.label = {}
                         self.tab.label[1] = dgsCreateLabel(0,0,1,0.2,"Hierkannst du dein Passwort ändern\nFülle dazu das Formular aus.",true,self.tab[4],nil,nil,nil,nil,nil,nil,"center","center")
                         self.tab.edit = {}
@@ -275,6 +279,17 @@ function selfmenue_tabs(btn,st)
                         self.tab.edit[2] = dgsCreateEdit(0.2,0.5,0.6,0.09,"Neues Passwort",true,self.tab[4])
                         self.tab.edit[3] = dgsCreateEdit(0.2,0.7,0.6,0.09,"Neues Passwort Wdh.",true,self.tab[4])
                         self.tab.btn[1] = dgsCreateButton(0.75,0.875,0.225,0.1,"Bestätigen",true,self.tab[4])
+                        addEventHandler("onDgsMouseClick",getRootElement(),function(btn,st)
+                            if btn == "left" and st == "up" then
+                                if source == self.tab.btn[1] then
+                                    if dgsGetText(self.tab.edit[2]) == dgsGetText(self.tab.edit[3]) then
+                                        triggerServerEvent("onClientPasswordChangeRequest",lp,lp,dgsGetText(self.tab.edit[1]),dgsGetText(self.tab.edit[3]))
+                                    else
+                                        notification("Die Passwörter stimmen nicht überein!",5000,tocolor(182,50,50,255))
+                                    end
+                                end
+                            end
+                        end)
                     self.tab[5] = dgsCreateTab("Administrator",self.tab[1])
                     self.tab[6] = dgsCreateTab("Serial",self.tab[1])
                     self.tab[7] = dgsCreateTab("Haus",self.tab[1])
