@@ -203,7 +203,7 @@ addEventHandler("onClientHudDisable",getRootElement(),onHudDisable)
 local self = {
     window = {},
     image = {},
-    
+    label = {},
 }
 local selfactive = false
 local settingactive = false 
@@ -274,6 +274,7 @@ function selfmenue_tabs(btn,st)
                     useractive = false 
                 elseif not useractive then 
                      self.window[3] = dgsCreateWindow(0.4,0.1067,0.2,0.3,"Benutzermenü",true,tocolor(20,50,135,255))
+                     self.label[1] = dgsCreateLabel(0.01,0.01,1,1,"Benutzername:\n"..lp:getName().."\n\nSpielzeit:\n"..minutesToClock(lp:getData("playtime")).."\n\nAnzahl der Logins:\n"..lp:getData("logins"),true,self.window[3])
                      useractive = true
                 end
             end

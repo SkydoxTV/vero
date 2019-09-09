@@ -33,6 +33,7 @@ lp:setData("loggedin",false)
 lp:setData("showhud",false)
 function RegisterLoginWindow()
     dgs.sound[1] = playSound("res/sound/loginregister.mp3",true)
+    setSoundVolume(dgs.sound[1],0.5)
     --SetCamera/Position etc.
     Camera.setMatrix(-2706,-5,12,-2706,96,8,2.5,180)
     fadeCamera(true)
@@ -52,7 +53,7 @@ function RegisterLoginWindow()
     --Wilkommen
     dgs.label[1] = dgsCreateLabel(0.01,0.01,0.99,0.1,"Herzlich Wilkommen auf VeRo Reallife!\nBitte Logge dich ein, oder Registriere dich um fortzufahren.",true,dgs.tab[1],nil,nil,nil,nil,nil,nil,"center","center")
     dgs.sp[1] = dgsCreateScrollPane(0.01,0.11,0.525,0.8,true,dgs.tab[1])
-    dgs.label[2] = dgsCreateLabel(0.1,0,0.8,1.8,"\n------------------------------------\nChangelog:\n(Verfolge die Entwicklung\nunseres Servers)\n------------------------------------\n03.09.2019(Ver. 0.01 InDev):\n- Development gestartet\n- Login/Register Fenster erstellt\n- Datenbankstruktur vorläufig erstellt\n- Datenbankverbindungen hergestellt\n- Datensätze hinzugefügt\n- Backend für Register/Login\n- Spawnpunkt ausgewählt\n- Script aufgeräumt/sortiert\n\n04/03.09.2019(Ver. 0.02 InDev)\n- Vorläufiges (Dev)HUD-Design\n(-> Nur zur Funktion )\n- Tabpanel hinzugefügt\n- Spielzeit ergänzt\n\n05.09.2019(Ver.0.03 InDev)\n- Benachrichtigungen eingebaut\n- Bugfix sowie minimale\nTab Panel änderung\n- Fraktionssystem hinzugefügt\n(Grundsystem)\n- Fahrzeugsystem hinzugefügt\n(Grundsystem)\n\n06.09.2019(Ver.0.03 InDev)\n- Fahrzeugsystem erweitert",true,dgs.sp[1],nil,nil,nil,nil,nil,nil,"center","top")
+    dgs.label[2] = dgsCreateLabel(0.1,0,0.8,1.8,"\n------------------------------------\nChangelog:\n(Verfolge die Entwicklung\nunseres Servers)\n------------------------------------\n03.09.2019(Ver. 0.01 InDev):\n- Development gestartet\n- Login/Register Fenster erstellt\n- Datenbankstruktur vorläufig erstellt\n- Datenbankverbindungen hergestellt\n- Datensätze hinzugefügt\n- Backend für Register/Login\n- Spawnpunkt ausgewählt\n- Script aufgeräumt/sortiert\n\n04/03.09.2019(Ver. 0.02 InDev)\n- Vorläufiges (Dev)HUD-Design\n(-> Nur zur Funktion )\n- Tabpanel hinzugefügt\n- Spielzeit ergänzt\n\n05.09.2019(Ver.0.03 InDev)\n- Benachrichtigungen eingebaut\n- Bugfix sowie minimale\nTab Panel änderung\n- Fraktionssystem hinzugefügt\n(Grundsystem)\n- Fahrzeugsystem hinzugefügt\n(Grundsystem)\n\n06.09.2019(Ver.0.03 InDev)\n- Fahrzeugsystem erweitert\n\n08.09.2019(Ver.0.031 InDev)\n- Fahrzeugmenü erstellt",true,dgs.sp[1],nil,nil,nil,nil,nil,nil,"center","top")
     dgs.label[3] = dgsCreateLabel(0.5,0.11,0.49,0.89,"\n------------------------------------\nServerstatus:\n------------------------------------\nDatenbankserver: \nOnline(Dev)\n\nWebserver: \nOnline(InDev)\n\n------------------------------------\nGeplante Neuerungen(ToDo):\n------------------------------------\n- Selfmenü(!)\n- Autosystem(...)\n- Fraktionen(!)",true,dgs.tab[1],nil,nil,nil,nil,nil,nil,"center","top")
     
     -----------

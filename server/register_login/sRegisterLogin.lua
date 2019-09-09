@@ -7,6 +7,39 @@
 --Copyright (c) 2019 VeRo
 --]]
 
+function setLogRegDatas(datas,player)
+    local result = datas
+    local source = player
+    source:setData("reglog",false)
+    source:setData("loggedin",true)
+    source:setData("showhud",true)
+    source:setData("money",result[1]["money"])
+    source:setData("status",result[1]["status"])
+    source:setData("telnr",result[1]["number"])
+    source:setData("bankmoney",result[1]["bankmoney"])
+    source:setData("adminlvl",result[1]["adminlvl"])
+    source:setData("playtime",result[1]["time"])
+    source:setData("factionlvl",result[1]["factionlvl"])
+    source:setData("factionid",result[1]["factionid"])
+    source:setData("logins",result[1]["logins"])
+end
+function generatePhoneNumber()
+    local phonenumber = math.random(111111,999999)
+    local result = dbPoll(dbQuery(dbCon,"SELECT * FROM user WHERE number = ?",phonenumber),-1)
+    if result[1] then
+        phonenumber = math.random(1111111,9999999) 
+        result = dbPoll(dbQuery(dbCon,"SELECT * FROM user WHERE number = ?",phonenumber),-1)
+        if result[1] then 
+            phonenumber = math.random(11111111,99999999) 
+            return phonenumber   
+        else
+            return phonenumber
+        end
+    else
+        return phonenumber
+    end
+end
+
 
 function utilizeRegisterData(pwd,pwd2,geschlecht)
     local maleSkins = {0, 1, 2, 7, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 32, 33, 34, 35, 36, 37, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 57, 58, 59, 60, 61, 62, 66, 67, 68, 70, 71, 72, 73, 78, 79, 80, 81, 82, 83, 84, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 120, 121, 122, 123, 124, 125, 126, 127, 128, 132, 133, 134, 135, 136, 137, 142, 143, 144, 146, 147, 153, 154, 155, 156, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 170, 171, 173, 174, 175, 176, 177, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 200, 202, 203, 204, 206, 209, 210, 212, 213, 217, 220, 221, 222, 223, 227, 228, 229, 230, 234, 235, 236, 239, 240, 241, 242, 247, 248, 249, 250, 252, 253, 254, 255, 258, 259, 260, 261, 262, 264, 265, 266, 267, 268, 269, 270, 271, 272, 274, 275, 276, 277, 278, 279, 280, 281, 282, 283, 284, 285, 286, 287, 288, 290, 291, 292, 293, 294, 295, 296, 297, 299, 300, 301, 302, 303, 305, 306, 307, 308, 309, 310, 311, 312}
@@ -34,22 +67,14 @@ function utilizeRegisterData(pwd,pwd2,geschlecht)
                     player:outputChat("Du hast berreits einen Account: "..result[1]["username"])
                 else
                     local pw = passwordHash(pwd2,"bcrypt",{})
-                    local result = dbPoll(dbQuery(dbCon,"INSERT INTO user (username,password,serial,skin) VALUES (?,?,?,?)",player:getName(),pw,player:getSerial(),skinid),-1)
+                    local number = generatePhoneNumber()
+                    local result = dbPoll(dbQuery(dbCon,"INSERT INTO user (username,password,serial,skin,number) VALUES (?,?,?,?,?)",player:getName(),pw,player:getSerial(),skinid,number),-1)
                     source:setHudComponentVisible("radar",true)
                     triggerClientEvent(source,"closeClientRegisterLoginWindow",source)
                     source:setCameraTarget(source)
                     local result = dbPoll(dbQuery(dbCon,"SELECT * FROM user WHERE username=?",player:getName()),-1)
                     spawnPlayer(source,result[1]["x"],result[1]["y"],result[1]["z"],result[1]["rot"],result[1]["skin"],result[1]["int"],result[1]["dim"])
-                    source:setData("reglog",false)
-                    source:setData("loggedin",true)
-                    source:setData("showhud",true)
-                    source:setData("money",result[1]["money"])
-                    source:setData("bankmoney",result[1]["bankmoney"])
-                    source:setData("telnr",result[1]["number"])
-                    source:setData("playtime",result[1]["time"])
-                    source:setData("adminlvl",result[1]["adminlvl"])
-                    source:setData("factionlvl",result[1]["factionlvl"])
-                    source:setData("factionid",result[1]["factionid"])
+                    setLogRegDatas(result,source)
                     print(result[1]["time"])
                     local time = getRealTime()
                     source:setData("startTime",time.timestamp)
@@ -72,17 +97,8 @@ function utilizeLoginData(pwd)
             source:setCameraTarget(source)
             local result = dbPoll(dbQuery(dbCon,"SELECT * FROM user WHERE username=?",source:getName()),-1)
             spawnPlayer(source,result[1]["x"],result[1]["y"],result[1]["z"],result[1]["rot"],result[1]["skin"],result[1]["int"],result[1]["dim"])
-            source:setData("reglog",false)
-            source:setData("loggedin",true)
-            source:setData("showhud",true)
-            source:setData("money",result[1]["money"])
-            source:setData("status",result[1]["status"])
-            source:setData("telnr",result[1]["number"])
-            source:setData("bankmoney",result[1]["bankmoney"])
-            source:setData("adminlvl",result[1]["adminlvl"])
-            source:setData("playtime",result[1]["time"])
-            source:setData("factionlvl",result[1]["factionlvl"])
-            source:setData("factionid",result[1]["factionid"])
+            setLogRegDatas(result,source)
+            dbPoll(dbQuery(dbCon,"UPDATE user SET logins = ? WHERE username = ?",result[1]["logins"]+1,source:getName()),-1)
             local result2 = dbPoll(dbQuery(dbCon,"SELECT * FROM factions WHERE id = ?",source:getData("factionid")),-1)
             if result2[1] then
                 source:setData("factionname",result2[1]["name"])
@@ -110,6 +126,14 @@ addEventHandler("onResourceStop",getResourceRootElement(getThisResource()),funct
         if k:getData("loggedin") then
             dbPoll(dbQuery(dbCon,"UPDATE user SET money=?,bankmoney=?,time=?,status=? WHERE username=?",k:getData("money"),k:getData("bankmoney"),k:getData("playtime"),k:getData("status"),k:getName()),-1)
             outputDebugString("[Datenbank] Userdaten #"..v.." gespeichert!")
+        end
+    end
+end)
+
+addEventHandler("onResourceStart",getResourceRootElement(getThisResource()),function()
+    for n,e in pairs(getElementsByType("player")) do
+        for k,v in pairs(getAllElementData(e)) do
+            setElementData(e,k,nil)
         end
     end
 end)
