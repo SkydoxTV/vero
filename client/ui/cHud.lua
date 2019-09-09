@@ -223,18 +223,22 @@ addEventHandler("onClientClick",getRootElement(),function(button, state, absolut
             if clickedElement == getLocalPlayer() then
                 if lp:getData("loggedin") then
                     if lp:getData("showhud") then
-                        if selfactive then
-                            dgsCloseWindow(self.window[1])
-                            selfactive = false
-                            removeEventHandler("onDgsMouseClick",getRootElement(),selfmenue_tabs)
-                            guiSetInputMode("allow_binds")
-                        else
-                            self.window[1] = dgsCreateWindow(0.4,0.01,0.2,0.0967,"Eigenmenü",true,tocolor(20,50,135,255))
-                            selfactive = true
-                            self.image[1] = dgsCreateImage(0.1,0,0.2,1,"res/img/user.png",true,self.window[1])
-                            self.image[2] = dgsCreateImage(0.4,0,0.2,1,"res/img/settings.jpg",true,self.window[1])
-                            self.image[3] = dgsCreateImage(0.7,0,0.2,1,"res/img/close.png",true,self.window[1])
-                            addEventHandler("onDgsMouseClick",getRootElement(),selfmenue_tabs)
+                        if not lp:getData("inwindow") then
+                            if selfactive then
+                                dgsCloseWindow(self.window[1])
+                                selfactive = false
+                                removeEventHandler("onDgsMouseClick",getRootElement(),selfmenue_tabs)
+                                guiSetInputMode("no_binds_when_editing")
+                                lp:setData("inwindow",false)
+                            else
+                                lp:setData("inwindow",true)
+                                self.window[1] = dgsCreateWindow(0.4,0.01,0.2,0.0967,"Eigenmenü",true,tocolor(20,50,135,255))
+                                selfactive = true
+                                self.image[1] = dgsCreateImage(0.1,0,0.2,1,"res/img/user.png",true,self.window[1])
+                                self.image[2] = dgsCreateImage(0.4,0,0.2,1,"res/img/settings.jpg",true,self.window[1])
+                                self.image[3] = dgsCreateImage(0.7,0,0.2,1,"res/img/close.png",true,self.window[1])
+                                addEventHandler("onDgsMouseClick",getRootElement(),selfmenue_tabs)
+                            end
                         end
                     end
                 end
@@ -248,7 +252,8 @@ function selfmenue_tabs(btn,st)
             if source == self.image[3] then
                 removeEventHandler("onDgsMouseClick",getRootElement(),selfmenue_tabs)
                 dgsCloseWindow(self.window[1])
-                guiSetInputMode("allow_binds")
+                guiSetInputMode("no_binds_when_editing")
+                lp:setData("inwindow",false)
                 selfactive = false
                 if settingactive then
                     dgsCloseWindow(self.window[2])

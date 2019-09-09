@@ -5,6 +5,7 @@
     <script src="client/ui/cHud.lua" type="client" cache="false"/>
     <script src="client/ui/cLogin.lua" type="client" cache="false"/>
     <script src="client/vehiclesystem/cVehicles.lua" type="client" cache="false"/>
+    <script src="client/ui/cAtm.lua" type="client" cache ="false"/>
 
     <script src="server/ui/sHud.lua"/>
     <script src="server/register_login/sRegisterLogin.lua" />
@@ -12,6 +13,7 @@
     <script src="server/faction/sFaction.lua"/>
     <script src="server/vehiclesystem/sVehicles.lua"/>
     <script src="server/admin/sAdmin.lua"/>
+    
 
     <file src="res/sound/loginregister.mp3" />
     <file src="res/sound/notifi.ogg" />

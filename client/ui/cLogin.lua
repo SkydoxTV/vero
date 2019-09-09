@@ -134,7 +134,7 @@ function closeRegisterLoginWindow()
     dgsCloseWindow(dgs.window[1])
     stopSound(dgs.sound[1])
     showCursor(false)
-    guiSetInputMode("allow_binds")
+    guiSetInputMode("no_binds_when_editing")
     notification("Du hast dich erfolgreich eingeloggt",5000)
 end
 addEvent("closeClientRegisterLoginWindow",true)
